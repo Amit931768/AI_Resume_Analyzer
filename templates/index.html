@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+<script defer src="{{ url_for('static', filename='darkmode.js') }}"></script>
 
 </head>
 
@@ -18,20 +19,19 @@
 
 <div class="container">
 
+<button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+
 <h1>AI Resume Analyzer</h1>
 
 <form action="/analyze" method="POST" enctype="multipart/form-data">
 
 <div class="drop-area" id="dropArea">
-<p id="dropText">Tap to Upload Resume</p>
 
-<input 
-type="file" 
-name="resume" 
-id="fileInput" 
-accept=".pdf,.doc,.docx"
-required
->
+<p id="dropText">Drag & Drop Resume</p>
+
+<input type="file" name="resume" id="fileInput" required>
+
+<label for="fileInput">Choose File</label>
 
 </div>
 

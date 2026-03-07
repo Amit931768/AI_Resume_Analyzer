@@ -1,61 +1,78 @@
+// ATS SCORE ANIMATION
+
 document.addEventListener("DOMContentLoaded", function(){
+
+const progress = document.getElementById("progress");
+const scoreText = document.getElementById("scoreText");
+
+if(progress && scoreText){
+
+let score = parseInt(scoreText.innerText);
+
+let current = 0;
+
+let interval = setInterval(()=>{
+
+current++;
+
+progress.style.width = current + "%";
+
+if(current >= score){
+
+clearInterval(interval);
+
+}
+
+},20);
+
+}
+
+});
+
+
+// DRAG & DROP UPLOAD
 
 const dropArea = document.getElementById("dropArea");
 const fileInput = document.getElementById("fileInput");
-const dropText = document.getElementById("dropText");
 
+if(dropArea){
 
-// CLICK UPLOAD (MOBILE + DESKTOP)
+dropArea.addEventListener("dragover",(e)=>{
 
-dropArea.addEventListener("click", function(){
-    fileInput.click();
+e.preventDefault();
+dropArea.style.background="#eef2ff";
+
 });
 
+dropArea.addEventListener("dragleave",()=>{
 
-// FILE NAME SHOW AFTER SELECT
+dropArea.style.background="#f8f9ff";
+
+});
+
+dropArea.addEventListener("drop",(e)=>{
+
+e.preventDefault();
+
+fileInput.files = e.dataTransfer.files;
+
+dropArea.style.background="#f8f9ff";
+
+});
+
+}
+
+
+// FILE NAME SHOW
+
+if(fileInput){
 
 fileInput.addEventListener("change", function(){
 
-    if(fileInput.files.length > 0){
-        dropText.innerText = fileInput.files[0].name;
-    }
+let fileName = this.files[0].name;
+
+dropArea.querySelector("p").innerText = fileName;
 
 });
 
-
-// DRAG OVER (DESKTOP)
-
-dropArea.addEventListener("dragover", function(e){
-
-    e.preventDefault();
-    dropArea.style.background = "#eef2ff";
-
-});
-
-
-// DRAG LEAVE
-
-dropArea.addEventListener("dragleave", function(){
-
-    dropArea.style.background = "#f8f9ff";
-
-});
-
-
-// DROP FILE (DESKTOP)
-
-dropArea.addEventListener("drop", function(e){
-
-    e.preventDefault();
-
-    const files = e.dataTransfer.files;
-
-    if(files.length > 0){
-        dropText.innerText = files[0].name;
-    }
-
-    dropArea.style.background = "#f8f9ff";
-
-});
-
-});
+}
