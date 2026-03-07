@@ -46,10 +46,7 @@ def analyze():
         if skill in text:
             found_skills.append(skill)
 
-    score = len(found_skills) * 10
-
-    if score > 100:
-        score = 100
+    score = int((len(found_skills) / len(skills_db)) * 100)
 
     missing_skills = list(set(skills_db) - set(found_skills))
 
