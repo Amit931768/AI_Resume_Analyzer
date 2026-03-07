@@ -4,49 +4,36 @@ const dropArea = document.getElementById("dropArea");
 const fileInput = document.getElementById("fileInput");
 const dropText = document.getElementById("dropText");
 
-// ATS SCORE ANIMATION
+// CLICK UPLOAD (WORKS MOBILE + DESKTOP)
 
-const progress = document.getElementById("progress");
-const scoreText = document.getElementById("scoreText");
+dropArea.addEventListener("click", () => {
+fileInput.click();
+});
 
-if(progress && scoreText){
+// FILE NAME SHOW
 
-let score = parseInt(scoreText.innerText);
+fileInput.addEventListener("change", function(){
 
-let current = 0;
-
-let interval = setInterval(()=>{
-
-current++;
-
-progress.style.width = current + "%";
-
-if(current >= score){
-
-clearInterval(interval);
-
+if(this.files.length > 0){
+dropText.innerText = this.files[0].name;
 }
 
-},20);
+});
 
-}
-
-// MOBILE CHECK
-
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-if(!isMobile){
-
-// DRAG & DROP ONLY FOR DESKTOP
+// DRAG OVER
 
 dropArea.addEventListener("dragover",(e)=>{
 e.preventDefault();
 dropArea.style.background="#eef2ff";
 });
 
+// DRAG LEAVE
+
 dropArea.addEventListener("dragleave",()=>{
 dropArea.style.background="#f8f9ff";
 });
+
+// DROP FILE
 
 dropArea.addEventListener("drop",(e)=>{
 
@@ -54,23 +41,9 @@ e.preventDefault();
 
 fileInput.files = e.dataTransfer.files;
 
-if(dropText){
 dropText.innerText = e.dataTransfer.files[0].name;
-}
 
 dropArea.style.background="#f8f9ff";
-
-});
-
-}
-
-// FILE NAME SHOW
-
-fileInput.addEventListener("change", function(){
-
-if(this.files.length > 0 && dropText){
-dropText.innerText = this.files[0].name;
-}
 
 });
 
