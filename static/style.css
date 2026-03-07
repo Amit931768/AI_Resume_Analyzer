@@ -242,28 +242,6 @@ background:#38a169;
 
 }
 
-/* DARK MODE BUTTON */
-
-.dark-btn{
-position:absolute;
-top:20px;
-right:20px;
-background:black;
-color:white;
-border:none;
-padding:8px 14px;
-border-radius:8px;
-cursor:pointer;
-font-size:14px;
-}
-
-/* DARK MODE */
-
-.dark{
-
-background:#1e1e1e;
-
-}
 
 .dark .container{
 
