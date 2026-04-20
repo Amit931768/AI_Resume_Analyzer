@@ -1,78 +1,73 @@
 // ATS SCORE ANIMATION
-
 document.addEventListener("DOMContentLoaded", function(){
 
-const progress = document.getElementById("progress");
-const scoreText = document.getElementById("scoreText");
+    const progress = document.getElementById("progress");
+    const scoreText = document.getElementById("scoreText");
 
-if(progress && scoreText){
+    if(progress && scoreText){
 
-let score = parseInt(scoreText.innerText);
+        // sirf number extract karo
+        let score = parseInt(scoreText.innerText.split(" ")[0]);
 
-let current = 0;
+        let current = 0;
 
-let interval = setInterval(()=>{
+        let interval = setInterval(()=>{
 
-current++;
+            current++;
 
-progress.style.width = current + "%";
+            progress.style.width = current + "%";
 
-if(current >= score){
+            if(current >= score){
+                clearInterval(interval);
+            }
 
-clearInterval(interval);
-
-}
-
-},20);
-
-}
+        },20);
+    }
 
 });
 
 
 // DRAG & DROP UPLOAD
-
 const dropArea = document.getElementById("dropArea");
 const fileInput = document.getElementById("fileInput");
+const dropText = document.getElementById("dropText");
 
 if(dropArea){
 
-dropArea.addEventListener("dragover",(e)=>{
+    dropArea.addEventListener("dragover",(e)=>{
+        e.preventDefault();
+        dropArea.style.background="#eef2ff";
+    });
 
-e.preventDefault();
-dropArea.style.background="#eef2ff";
+    dropArea.addEventListener("dragleave",()=>{
+        dropArea.style.background="#f8f9ff";
+    });
 
-});
+    dropArea.addEventListener("drop",(e)=>{
+        e.preventDefault();
 
-dropArea.addEventListener("dragleave",()=>{
+        fileInput.files = e.dataTransfer.files;
 
-dropArea.style.background="#f8f9ff";
+        dropArea.style.background="#f8f9ff";
 
-});
-
-dropArea.addEventListener("drop",(e)=>{
-
-e.preventDefault();
-
-fileInput.files = e.dataTransfer.files;
-
-dropArea.style.background="#f8f9ff";
-
-});
+        // file name show karo
+        if(fileInput.files.length > 0){
+            dropText.innerText = fileInput.files[0].name;
+        }
+    });
 
 }
 
 
-// FILE NAME SHOW
-
+// FILE NAME SHOW (manual select)
 if(fileInput){
 
-fileInput.addEventListener("change", function(){
+    fileInput.addEventListener("change", function(){
 
-let fileName = this.files[0].name;
+        if(this.files.length > 0){
+            dropText.innerText = this.files[0].name;
+        }
 
-dropArea.querySelector("p").innerText = fileName;
-
-});
+    });
 
 }

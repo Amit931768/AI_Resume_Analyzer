@@ -46,7 +46,7 @@
 <h2>ATS Score</h2>
 
 <div class="progress-bar">
-<div class="progress" id="progress"></div>
+    <div class="progress" id="progress" style="width: {{score}}%;"></div>
 </div>
 
 <p id="scoreText">{{score}} / 100</p>
@@ -54,27 +54,21 @@
 <div class="grid">
 
 <div>
-
 <h3>Skills Found</h3>
-
 <ul>
 {% for s in found %}
 <li class="highlight">{{s}}</li>
 {% endfor %}
 </ul>
-
 </div>
 
 <div>
-
 <h3>Missing Skills</h3>
-
 <ul>
 {% for m in missing %}
 <li>{{m}}</li>
 {% endfor %}
 </ul>
-
 </div>
 
 </div>
@@ -92,7 +86,12 @@
 
 </div>
 
-<a class="download-btn" href="/download">Download PDF Report</a>
+<!-- ✅ FIXED DOWNLOAD BUTTON -->
+{% if filename %}
+<a class="download-btn" href="/download/{{ filename }}">
+    Download Resume
+</a>
+{% endif %}
 
 </div>
 
